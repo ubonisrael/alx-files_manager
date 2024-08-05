@@ -127,7 +127,7 @@ export default class FilesController {
       if (doc) {
         return res.status(200).json({ ...doc });
       }
-      return res.status(404).json({ error: 'Not Found' });
+      return res.status(404).json({ error: 'Not found' });
     }
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -150,7 +150,7 @@ export default class FilesController {
       }
       const collection = await dbClient.filesCollection();
       const docs = await collection.aggregate(pipeline).toArray();
-      return res.status(200).json({ docs });
+      return res.status(200).json(docs);
     }
     return res.status(401).json({ error: 'Unauthorized' });
   }
