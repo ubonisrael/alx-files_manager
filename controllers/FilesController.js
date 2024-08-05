@@ -14,7 +14,7 @@ export default class FilesController {
     const xToken = req.headers['x-token'];
 
     if (xToken) {
-      const id = await redisClient.get(xToken);
+      const id = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(id);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
@@ -112,7 +112,7 @@ export default class FilesController {
     const { id } = req.params;
 
     if (xToken) {
-      const userId = await redisClient.get(xToken);
+      const userId = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(userId);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
@@ -141,7 +141,7 @@ export default class FilesController {
     const pipeline = [{ $match: query }, { $skip: skip }, { $limit: 20 }];
 
     if (xToken) {
-      const userId = await redisClient.get(xToken);
+      const userId = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(userId);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
@@ -160,7 +160,7 @@ export default class FilesController {
     const { id } = req.params;
 
     if (xToken) {
-      const userId = await redisClient.get(xToken);
+      const userId = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(userId);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
@@ -192,7 +192,7 @@ export default class FilesController {
     const { id } = req.params;
 
     if (xToken) {
-      const userId = await redisClient.get(xToken);
+      const userId = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(userId);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
@@ -224,7 +224,7 @@ export default class FilesController {
     const { id } = req.params;
 
     if (xToken) {
-      const userId = await redisClient.get(xToken);
+      const userId = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(userId);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });

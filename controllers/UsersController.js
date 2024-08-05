@@ -32,15 +32,15 @@ export default class UsersController {
     const xToken = req.headers['x-token'];
 
     if (xToken) {
-      const id = await redisClient.get(xToken);
+      const id = await redisClient.get(`auth_${xToken}`);
       const objId = new ObjectID(id);
       const users = await dbClient.usersCollection();
       const user = await users.findOne({ _id: objId });
       if (user) {
-        return res.status(200).json({ email: user.email, id });
+        return res.status(200).json({ id, email: user.email });
       }
-      return res.status(400).json({ error: 'Unauthorized' });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
-    return res.status(400).json({ error: 'Unauthorized' });
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 }

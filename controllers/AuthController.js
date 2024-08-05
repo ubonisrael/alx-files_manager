@@ -24,7 +24,7 @@ export default class AuthController {
     if (sha1(password) === user.password) {
       // create a token
       const token = v4();
-      await redisClient.set(token, user._id.toString(), 24 * 60 * 60);
+      await redisClient.set(`auth_${token}`, user._id.toString(), 24 * 60 * 60);
       return res.status(200).json({ token });
     }
     return res.status(400).json({ error: 'Unauthorized' });
@@ -34,7 +34,7 @@ export default class AuthController {
     const xToken = req.headers['x-token'];
 
     if (xToken) {
-      await redisClient.del(xToken);
+      await redisClient.del(`auth_${xToken}`);
       return res.status(204).json({});
     }
     return res.status(401).json({ error: 'Unauthorized' });
