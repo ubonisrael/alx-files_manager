@@ -184,9 +184,10 @@ export default class FilesController {
       if (doc) {
         const modifiedObject = { ...doc.value };
         modifiedObject.isPublic = true;
+        delete Object.assign(modifiedObject, { id: modifiedObject._id })._id;
         return res.status(200).json({ ...modifiedObject });
       }
-      return res.status(404).json({ error: 'Not Found' });
+      return res.status(404).json({ error: 'Not found' });
     }
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -216,9 +217,10 @@ export default class FilesController {
       if (doc) {
         const modifiedObject = { ...doc.value };
         modifiedObject.isPublic = false;
+        delete Object.assign(modifiedObject, { id: modifiedObject._id })._id;
         return res.status(200).json({ ...modifiedObject });
       }
-      return res.status(404).json({ error: 'Not Found' });
+      return res.status(404).json({ error: 'Not found' });
     }
     return res.status(401).json({ error: 'Unauthorized' });
   }
