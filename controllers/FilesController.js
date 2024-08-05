@@ -150,6 +150,9 @@ export default class FilesController {
       }
       const collection = await dbClient.filesCollection();
       const docs = await collection.aggregate(pipeline).toArray();
+      for (const doc of docs) {
+        delete Object.assign(doc, { id: doc._id })._id;
+      }
       return res.status(200).json(docs);
     }
     return res.status(401).json({ error: 'Unauthorized' });
