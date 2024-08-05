@@ -125,6 +125,7 @@ export default class FilesController {
         userId: new ObjectID(user._id),
       });
       if (doc) {
+        delete Object.assign(doc, { id: doc._id })._id;
         return res.status(200).json({ ...doc });
       }
       return res.status(404).json({ error: 'Not found' });
